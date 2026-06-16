@@ -1,4 +1,3 @@
-import { Subject } from "./subject.types";
 
 export interface ICategory {
   name: string
@@ -8,5 +7,4 @@ export interface Category {
   name: string;
   slug: string;
   iconUrl: string;
-  subject: Subject[];
 }

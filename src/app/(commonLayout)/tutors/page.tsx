@@ -1,12 +1,11 @@
 import PageTitle from "@/components/frontend/PageTitle";
 import TutorSidebar from "@/components/public/TutorSidebar";
 import TutorList from "@/components/public/TutorList";
-import { getAllTutors } from "@/services/tutor.service";
+import { getAllTutors, getAllTutorsPublic } from "@/services/tutor.service";
 import { ITutorDetails } from "@/types/tutor.types";
 import SearchTutor from "@/components/public/SearchTutor";
 import { getAllCategory } from "@/services/category.service";
 import { Category } from "@/types/category.types";
-import { Env } from "@/env";
 
 interface SearchParams {
   category?: string;
@@ -31,7 +30,7 @@ export default async function TutorsPage({
     minRating: minRating ? Number(minRating) : undefined,
   };
 
-  const data = await getAllTutors(filters);
+  const data = await getAllTutorsPublic(filters);
   const tutors: ITutorDetails[] = data?.data?.tutors || [];
 
   const categoryData = await getAllCategory();

@@ -33,6 +33,35 @@ export const getAllTutors = async (filters?: {
     console.log("Tutor fetch failed:", error.message);
   }
 }
+export const getAllTutorsPublic = async (filters?: {
+  category?: string | string[];
+  minPrice?: number;
+  maxPrice?: number;
+  minRating?: number;
+  search?: string;
+}) => {
+  try {
+    const queryParams = new URLSearchParams();
+    if (filters?.category) {
+      const categories = Array.isArray(filters.category) ? filters.category : [filters.category];
+      categories.forEach((cat: string) => { queryParams.append("category", cat) })
+    }
+    if (filters?.minPrice) queryParams.append("minPrice", String(filters.minPrice));
+    if (filters?.maxPrice) queryParams.append("maxPrice", String(filters.maxPrice));
+    if (filters?.minRating) queryParams.append("minRating", String(filters.minRating));
+    if (filters?.search) queryParams.append("search", filters.search);
+
+    const queryString = queryParams.toString();
+    const url = queryString ? `/tutors?${queryString}` : "/tutors";
+
+    const data = await clientFetch(url, {
+     next: {revalidate: 60}
+    })
+    return data;
+  } catch (error: any) {
+    console.log("Tutor fetch failed:", error.message);
+  }
+}
 export const getTutorByID = async (id: string) => {
   try {
     const data = await serverFetch(`/tutors/${id}`, {

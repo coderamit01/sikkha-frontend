@@ -1,6 +1,5 @@
 import { StarIcon, HeartIcon } from "./Icons";
 import { ITutorDetails } from "@/types/tutor.types";
-import Image from "next/image";
 import Link from "next/link";
 import DummyTutor from "@/assets/tutor.webp";
 
@@ -18,21 +17,20 @@ export function Tutors({ tutors }: { tutors: ITutorDetails[] }) {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {tutors.map((t) => (
-            <article className="tutor-card" key={t.name}>
+            <article className="tutor-card" key={t?.user?.name}>
               <div
-                className={`relative w-full aspect-square rounded-2.5xl overflow-hidden mb-4 ${t.image}`}
+                className={`relative w-full aspect-square rounded-2.5xl overflow-hidden mb-4`}
               >
-                <Image
-                  src={t.image || DummyTutor}
-                  alt={t.name}
-                  fill
+                <img
+                  src={t?.user?.image || DummyTutor.src}
+                  alt={t?.user?.name}
                   className="object-cover"
                 />
               </div>
 
               <div className="flex items-start justify-between gap-2 mb-1">
                 <h3 className="font-display font-bold text-[15px] md:text-[17px] text-ink">
-                  {t.name}
+                  {t?.user?.name}
                 </h3>
                 <div className="flex items-center gap-1 text-[13px] font-semibold text-ink shrink-0">
                   <StarIcon width={13} height={13} className="text-amber" />

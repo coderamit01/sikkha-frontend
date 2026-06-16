@@ -10,6 +10,8 @@ import ReviewForm from "@/components/public/ReviewForm";
 import { getBookings } from "@/services/bookings.service";
 import { IBooking } from "@/types/booking.types";
 
+import DummyTutor from "@/assets/tutor.webp";
+
 interface TutorDetailsPageParams {
   params: Promise<{ id: string }>;
 }
@@ -38,23 +40,18 @@ const TutorDetailsPage = async ({ params }: TutorDetailsPageParams) => {
 
   const {
     id: tutorId,
-    name,
-    image,
     user,
-    hourlyRate,
     yearsExperience,
-    availablity,
     averageRating,
-    isAvailable,
-    subjects,
     reviews,
+    category,
   } = tutor;
 
   const totalReview = reviews.length;
 
   return (
     <div className="min-h-screen bg-linear-to-br from-gray-50 to-gray-100">
-      <PageTitle title={name} subText="" />
+      <PageTitle title={user?.name} subText="" />
 
       <div className="max-w-310 mx-auto px-4 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -63,11 +60,17 @@ const TutorDetailsPage = async ({ params }: TutorDetailsPageParams) => {
               <div className="p-8 bg-linear-to-br from-green-50 to-white rounded-2xl">
                 <div className="flex items-start gap-6 mb-8">
                   <div className="w-28 h-28 rounded-full bg-[#25a5a21c] text-brand flex items-center justify-center text-6xl shrink-0 shadow-md">
-                    {image ? image : name.charAt(0).toUpperCase()}
+                    {user?.image ? (
+                      <img
+                        src={user?.image || DummyTutor.src}
+                        alt={user?.name}
+                        className="object-cover"
+                      />
+                    ) : user?.name.charAt(0).toUpperCase()}
                   </div>
                   <div className="flex-1">
                     <h1 className="text-4xl font-bold text-gray-900 mb-2">
-                      {name}
+                      {user?.name}
                     </h1>
 
                     <div className="flex flex-wrap gap-4 mb-4">
@@ -94,12 +97,12 @@ const TutorDetailsPage = async ({ params }: TutorDetailsPageParams) => {
                     </div>
 
                     <div className="flex flex-wrap gap-2">
-                      {subjects?.map((subject) => (
+                      {category?.map((cat) => (
                         <div
-                          key={subject.category.id}
+                          key={cat.id}
                           className="inline-block bg-violet-100 text-violet-600 rounded-full px-4 py-2 text-sm font-semibold"
                         >
-                          {subject.category.name}
+                          {cat.name}
                         </div>
                       ))}
                     </div>
