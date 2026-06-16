@@ -5,6 +5,7 @@ import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { usePathname } from "next/navigation";
+import Logo from "@/assets/logo.png"
 
 export interface NavItem {
   name: string;
@@ -26,12 +27,12 @@ export function Navbar() {
     return pathName === url;
   };
   return (
-    <nav className="sticky top-0 z-50 bg-white border-b border-gray-100 shadow-md">
+    <nav className="sticky top-0 z-50 bg-white border-b border-gray-100">
       <div className="max-w-310 mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <h2 className="text-2xl font-semibold">
-            <Link href="/" className="flex items-center gap-2 group">
-              Skill<span className="text-brand">Bridge</span>
+            <Link href="/" className="">
+              <img src={Logo.src} className="max-w-30" alt="Shikkha Logo" />
             </Link>
           </h2>
           {/* Desktop Navigation */}
@@ -51,7 +52,7 @@ export function Navbar() {
             <Button
               asChild
               variant="ghost"
-              className="text-base font-semibold text-gray-700 hover:text-brand hover:bg-green-50"
+              className="rounded-full text-base font-semibold text-gray-700 hover:text-brand hover:bg-green-50"
             >
               <Link href="/login">Login</Link>
             </Button>

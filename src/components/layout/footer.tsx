@@ -8,6 +8,7 @@ import {
   Phone,
 } from "lucide-react";
 import Link from "next/link";
+import lightLogo from "@/assets/light_logo.png"
 
 export function Footer() {
   const footerMenu1 = [
@@ -32,11 +33,11 @@ export function Footer() {
   ];
   return (
     <footer className="bg-brand text-slate-50">
-      <div className="container mx-auto px-4 pt-20 pb-10">
+      <div className="max-w-310 mx-auto px-4 pt-20 pb-10">
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-12 mb-12">
           <div>
             <h3 className="text-2xl font-bold text-slate-50 mb-4 flex items-center gap-2">
-              <span>SkillBridge 🎓</span>
+              <img src={lightLogo.src} className="max-w-30" alt="Shikkha Logo" />
             </h3>
             <p className="text-slate-50 leading-relaxed text-base">
               Connect with expert tutors and unlock your potential. 1-on-1
