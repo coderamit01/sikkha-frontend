@@ -33,9 +33,9 @@ const UserBookingsPage = async () => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {booking.map((book) => (
-              <UserBookTable key={book.id} book={book} />
-            ))}
+              {booking.map((book) => (
+                <UserBookTable key={book.id} book={book} />
+              ))}
           </TableBody>
         </Table>
       </CardContent>
