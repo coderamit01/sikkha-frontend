@@ -2,6 +2,8 @@ import { IBooking } from "@/types/booking.types";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Avatar } from "../ui/avatar";
 import { AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
+import { localTime } from "@/utils/localTime";
+import { TimeDifference } from "@/utils/timeDifference";
 
 const UpcommingSession = ({ bookings }: { bookings: IBooking[] }) => {
   if (!bookings || bookings.length === 0) {
@@ -22,26 +24,7 @@ const UpcommingSession = ({ bookings }: { bookings: IBooking[] }) => {
   const boking = bookings[0];
   const { student, availability, status } = boking;
 
-  const start = new Date(availability.startTime);
-  const end = new Date(availability.endTime);
-
-  const date =
-    start.toLocaleDateString("en-US", {
-      month: "short",
-      day: "numeric",
-    }) +
-    " · " +
-    start.toLocaleTimeString("en-US", {
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: true,
-    });
-
-  const diffMs =
-    Number(new Date(availability.endTime)) -
-    Number(new Date(availability.startTime));
-  const diffMins = diffMs / 1000 / 60;
-  const diffHours = diffMins / 60;
+  const timeDiff = TimeDifference(availability.startTime, availability.endTime)
 
   return (
     <Card className="relative">
@@ -57,8 +40,8 @@ const UpcommingSession = ({ bookings }: { bookings: IBooking[] }) => {
             </AvatarFallback>
           </Avatar>
           <p>Name: {student.name}</p>
-          <span>Date: {date}</span>
-          <span>Duration: {diffHours} Hours</span>
+          <span>Day: {availability.day}</span>
+          <span>Duration: {timeDiff} Hours</span>
         </div>
         <span className="absolute right-0 top-0 bg-brand text-white text-md p-2 rounded-tr-lg rounded-bl-lg capitalize">
           {status.charAt(0) + status.slice(1).toLowerCase()}

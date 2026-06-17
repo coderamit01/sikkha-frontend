@@ -53,6 +53,7 @@ export const BookingStatusModal = ({
     startTransition(async () => {
       try {
         const result = await updateBookingStatus(id, selectedStatus);
+        
         console.log(result);
         if (result?.success) {
           toast.success("Status updated successfully", {

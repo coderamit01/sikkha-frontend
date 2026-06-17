@@ -20,6 +20,7 @@ import { tutorRoutes } from "@/routes/tutorRoutes";
 import Link from "next/link";
 import { Role } from "@/types/user.types";
 import { Route } from "@/types/rotute.type";
+import SiteLogo from "@/assets/logo.png";
 
 export function AppSidebar({
   user,
@@ -54,7 +55,7 @@ export function AppSidebar({
   return (
     <Sidebar {...props}>
       <SidebarHeader className="h-16 flex items-center justify-center border-b p-1">
-        <span className="font-2xl font-semibold ">Skill Bridge</span>
+       <img src={SiteLogo.src} alt="Logo" className="w-25" />
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>

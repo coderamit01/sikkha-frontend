@@ -59,7 +59,7 @@ export const TutorDashboardStats = ({
       <StatsCard
         icon={<Star className="h-10 w-10 p-2 rounded bg-yellow-50 text-yellow-700" />}
         title="Average Rating"
-        count={`${stats.averageRating} ⭐`}
+        count={`${stats.averageRating}`}
       />
       <StatsCard
         icon={<MessageSquare className="h-10 w-10 p-2 rounded bg-purple-50 text-purple-700" />}

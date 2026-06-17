@@ -6,6 +6,7 @@ import { useState } from "react";
 import { SquarePen } from "lucide-react";
 import { BookingStatusModal } from "../modal/BookingStatusModal";
 import { Role } from "@/types/user.types";
+import { localTime } from "@/utils/localTime";
 
 const TutorBookingTable = ({ book }: { book: IBooking }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,16 +20,21 @@ const TutorBookingTable = ({ book }: { book: IBooking }) => {
     status === BookingStatus.CANCELLED || status === BookingStatus.COMPLETED;
   return (
     <TableRow>
-      <TableCell className="font-medium">{student.name}</TableCell>
-      <TableCell>{scheduleDate.toLocaleDateString()}</TableCell>
+      <TableCell className="font-medium">{student?.name}</TableCell>
+      <TableCell>{availability.day}</TableCell>
       <TableCell>
-        {new Date(availability.startTime).toLocaleTimeString()}
+        {localTime(availability.startTime)}
       </TableCell>
       <TableCell>
-        {new Date(availability.endTime).toLocaleTimeString()}
+        {localTime(availability.endTime)}
       </TableCell>
       <TableCell>৳{totalPrice}</TableCell>
       <TableCell className="lowercase">
+        {status === BookingStatus.PENDING && (
+          <Badge className="bg-orange-50 text-orange-700 dark:bg-orange-950 dark:text-orange-300">
+            {status}
+          </Badge>
+        )}
         {status === BookingStatus.CONFIRMED && (
           <Badge className="bg-blue-50 text-blue-700 dark:bg-blue-950 dark:text-blue-300">
             {status}
@@ -48,9 +54,8 @@ const TutorBookingTable = ({ book }: { book: IBooking }) => {
       <TableCell>
         <SquarePen
           onClick={isClosed ? undefined : handleOpen}
-          className={`w-6 h-6 bg-slate-200 p-1 rounded ${
-            isClosed ? "opacity-50 cursor-not-allowed" : "cursor-pointer"
-          }`}
+          className={`w-6 h-6 bg-slate-200 p-1 rounded ${isClosed ? "opacity-50 cursor-not-allowed" : "cursor-pointer"
+            }`}
         />
         <BookingStatusModal
           id={id}
