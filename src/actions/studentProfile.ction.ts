@@ -3,11 +3,11 @@ import { serverFetch } from "@/lib/fetchApi";
 import { IUpdatePayload } from "@/types/user.types";
 import { revalidatePath } from "next/cache";
 
-export const updateUser = async (id: string, payload: IUpdatePayload) => {
+export const updateUser = async (formData: FormData) => {
   try {
-    const data = await serverFetch(`/users/${id}`, {
+    const data = await serverFetch(`/users/profile`, {
       method: "PUT",
-      body: JSON.stringify(payload),
+      body: formData,
     })
     revalidatePath("/profile/edit");
     return data;

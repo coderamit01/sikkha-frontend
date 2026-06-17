@@ -20,7 +20,7 @@ export default async function ProfilePage() {
           ) / totalReviews
         ).toFixed(1)
       : "N/A";
-
+  console.log(user);
   return (
     <div className="max-w-3xl mx-auto space-y-6">
       <div className="flex items-center justify-between">

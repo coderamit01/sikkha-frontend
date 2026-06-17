@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { updateUser } from "@/actions/studentProfile.ction";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -11,11 +11,10 @@ import { useTransition } from "react";
 import { toast } from "sonner";
 
 export interface IEditProfileForm {
-  user: IUser
+  user: IUser;
 }
 
 const EditProfileform = ({ user }: IEditProfileForm) => {
-
   const [isPending, startTransition] = useTransition();
 
   const form = useForm({
@@ -23,33 +22,34 @@ const EditProfileform = ({ user }: IEditProfileForm) => {
       name: user.name || "",
       email: user.email,
       bio: user.bio || "",
-      image: user.image || ""
+      image: user.image || "",
     },
     onSubmit: async ({ value }) => {
       startTransition(async () => {
-        const result = await updateUser(user.id, value);
+        const result = await updateUser(value);
 
         if (result?.success) {
           toast.success("Profile updated!");
         } else {
           toast.error(result.error ?? "Something went wrong");
         }
-      })
-    }
-  })
+      });
+    },
+  });
   return (
     <div className="bg-white rounded-2xl border border-gray-200 p-6">
       <form
-        onSubmit={(e) => { e.preventDefault(); form.handleSubmit() }}
+        onSubmit={(e) => {
+          e.preventDefault();
+          form.handleSubmit();
+        }}
         className="space-y-5"
       >
-
         <form.Field name="image">
           {(field) => {
             const isInvalid =
               field.state.meta.isTouched && !field.state.meta.isValid;
             return (
-
               <div className="space-y-3">
                 <label className="text-sm font-medium text-gray-700 block">
                   Avatar URL
@@ -63,6 +63,7 @@ const EditProfileform = ({ user }: IEditProfileForm) => {
                   </Avatar>
                   <Input
                     id={field.name}
+                    type="file"
                     name={field.name}
                     value={field.state.value}
                     onChange={(e) => field.handleChange(e.target.value)}
@@ -72,7 +73,7 @@ const EditProfileform = ({ user }: IEditProfileForm) => {
                   />
                 </div>
               </div>
-            )
+            );
           }}
         </form.Field>
 
@@ -94,13 +95,16 @@ const EditProfileform = ({ user }: IEditProfileForm) => {
                   placeholder="Your full name"
                 />
               </div>
-            )
+            );
           }}
         </form.Field>
 
         <div>
           <label className="text-sm font-medium text-gray-700 block mb-1.5">
-            Email <span className="text-gray-400 font-normal">(cannot be changed)</span>
+            Email{" "}
+            <span className="text-gray-400 font-normal">
+              (cannot be changed)
+            </span>
           </label>
           <Input
             value={user.email}
@@ -127,9 +131,8 @@ const EditProfileform = ({ user }: IEditProfileForm) => {
                   placeholder="Tell us about yourself..."
                   rows={3}
                 />
-
               </div>
-            )
+            );
           }}
         </form.Field>
 
@@ -153,10 +156,9 @@ const EditProfileform = ({ user }: IEditProfileForm) => {
             )}
           </form.Subscribe>
         </div>
-
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default EditProfileform
+export default EditProfileform;

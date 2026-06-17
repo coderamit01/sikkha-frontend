@@ -1,16 +1,15 @@
-import React from "react"
-
+import React from "react";
 
 export interface IBioCard {
-  icon: React.ReactNode,
-  label: string,
-  text: string
+  icon: React.ReactNode;
+  label: string;
+  text: string;
 }
 
-export const BioCard = ({icon,label,text}: IBioCard) => {
+export const BioCard = ({ icon, label, text }: IBioCard) => {
   return (
     <div className="flex items-center gap-3">
-      <div className="w-8 h-8 bg-violet-50 rounded-lg flex items-center justify-center">
+      <div className="w-8 h-8 aspect-square bg-violet-50 rounded-lg inline-flex items-center justify-center">
         {icon}
       </div>
       <div>
@@ -18,5 +17,5 @@ export const BioCard = ({icon,label,text}: IBioCard) => {
         <p className="text-sm font-medium text-gray-900">{text}</p>
       </div>
     </div>
-  )
-}
+  );
+};
