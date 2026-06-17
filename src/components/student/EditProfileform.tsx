@@ -5,9 +5,9 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { IUpdatePayload, IUser } from "@/types/user.types";
+import { IUser } from "@/types/user.types";
 import { useForm } from "@tanstack/react-form";
-import { useTransition } from "react";
+import { useRef, useState, useTransition } from "react";
 import { toast } from "sonner";
 
 export interface IEditProfileForm {
@@ -16,22 +16,30 @@ export interface IEditProfileForm {
 
 const EditProfileform = ({ user }: IEditProfileForm) => {
   const [isPending, startTransition] = useTransition();
+  const fileRef = useRef<HTMLInputElement>(null)
+  const [previewUrl, setPreviewUrl] = useState(user.image || "");
+
 
   const form = useForm({
     defaultValues: {
       name: user.name || "",
-      email: user.email,
       bio: user.bio || "",
-      image: user.image || "",
     },
     onSubmit: async ({ value }) => {
+      const formData = new FormData();
+      formData.append("name", value.name)
+      formData.append("bio", value.bio)
+
+      const file = fileRef?.current?.files?.[0]
+      if (file) formData.append("image", file);
+
       startTransition(async () => {
-        const result = await updateUser(value);
+        const result = await updateUser(formData);
 
         if (result?.success) {
           toast.success("Profile updated!");
         } else {
-          toast.error(result.error ?? "Something went wrong");
+          toast.error(result?.error ?? "Something went wrong");
         }
       });
     },
@@ -45,37 +53,30 @@ const EditProfileform = ({ user }: IEditProfileForm) => {
         }}
         className="space-y-5"
       >
-        <form.Field name="image">
-          {(field) => {
-            const isInvalid =
-              field.state.meta.isTouched && !field.state.meta.isValid;
-            return (
-              <div className="space-y-3">
-                <label className="text-sm font-medium text-gray-700 block">
-                  Avatar URL
-                </label>
-                <div className="flex items-center gap-4">
-                  <Avatar className="w-14 h-14">
-                    <AvatarImage src={field.state.value} />
-                    <AvatarFallback className="bg-[#25a5a21c] text-brand font-bold">
-                      {user.name?.charAt(0).toUpperCase()}
-                    </AvatarFallback>
-                  </Avatar>
-                  <Input
-                    id={field.name}
-                    type="file"
-                    name={field.name}
-                    value={field.state.value}
-                    onChange={(e) => field.handleChange(e.target.value)}
-                    onBlur={field.handleBlur}
-                    placeholder="https://example.com/avatar.jpg"
-                    className="flex-1"
-                  />
-                </div>
-              </div>
-            );
-          }}
-        </form.Field>
+
+        <div className="space-y-3">
+          <label className="text-sm font-medium text-gray-700 block">
+            Avatar URL
+          </label>
+          <div className="flex items-center gap-4">
+            <Avatar className="w-14 h-14">
+              <AvatarImage src={previewUrl} />
+              <AvatarFallback className="bg-[#25a5a21c] text-brand font-bold">
+                {user.name?.charAt(0).toUpperCase()}
+              </AvatarFallback>
+            </Avatar>
+            <Input
+              ref={fileRef}
+              type="file"
+              accept="image/*"
+              onChange={(e) => {
+                const file = e.target.files?.[0];
+                if (file) setPreviewUrl(URL.createObjectURL(file))
+              }}
+              className="flex-1"
+            />
+          </div>
+        </div>
 
         <form.Field name="name">
           {(field) => {

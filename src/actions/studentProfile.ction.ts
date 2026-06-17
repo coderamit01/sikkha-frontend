@@ -1,6 +1,5 @@
 "use server"
 import { serverFetch } from "@/lib/fetchApi";
-import { IUpdatePayload } from "@/types/user.types";
 import { revalidatePath } from "next/cache";
 
 export const updateUser = async (formData: FormData) => {
@@ -12,6 +11,6 @@ export const updateUser = async (formData: FormData) => {
     revalidatePath("/profile/edit");
     return data;
   } catch (error: any) {
-    console.log("Failed:", error.message);
+     return { success: false, error: error.message };
   }
 }
