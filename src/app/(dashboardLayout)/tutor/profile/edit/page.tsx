@@ -13,7 +13,7 @@ const EditProfile = async () => {
           Update your personal information
         </p>
       </div>
-      <EditTutorForm user={user} />
+      <EditTutorForm tutor={user.tutor} />
       <EditUserProfileForm user={user} />
     </div>
   );

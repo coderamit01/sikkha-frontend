@@ -16,8 +16,8 @@ export const tutorRoutes: Route[] = [
     url: '/tutor/availability'
   },
   {
-    title: 'Subject',
-    url: '/tutor/subject'
+    title: 'Categories',
+    url: '/tutor/categories'
   },
   {
     title: 'Profile',

@@ -16,7 +16,7 @@ import { useState, useTransition } from "react";
 import { toast } from "sonner";
 import { createSubject } from "@/actions/subject.action";
 
-const SubjectAddForm = ({ categories }: { categories: Category[] }) => {
+const CategoryAddForm = ({ categories }: { categories: Category[] }) => {
   const [value, setValue] = useState<string>("");
   const [isPending, startTransition] = useTransition();
 
@@ -29,6 +29,7 @@ const SubjectAddForm = ({ categories }: { categories: Category[] }) => {
     startTransition(async () => {
       try {
         const result = await createSubject(value);
+        console.log(result);
         if (result?.success) {
           toast.success("Subject Added successfully", {
             position: "top-right",
@@ -81,4 +82,4 @@ const SubjectAddForm = ({ categories }: { categories: Category[] }) => {
   )
 };
 
-export default SubjectAddForm;
+export default CategoryAddForm;

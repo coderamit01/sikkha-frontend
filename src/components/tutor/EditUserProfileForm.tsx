@@ -3,13 +3,14 @@
 import { updateUserProfile } from "@/actions/userProfile.action";
 import { IUser } from "@/types/user.types";
 import { useForm } from "@tanstack/react-form";
-import { useTransition } from "react";
+import { useRef, useState, useTransition } from "react";
 import { toast } from "sonner";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { FieldLabel } from "@/components/ui/field";
+import { updateUser } from "@/actions/studentProfile.ction";
 
 export interface IEditUserProfileForm {
   user: IUser
@@ -17,6 +18,8 @@ export interface IEditUserProfileForm {
 
 export const EditUserProfileForm = ({ user }: IEditUserProfileForm) => {
   const [isPending, startTransition] = useTransition();
+  const fileRef = useRef<HTMLInputElement>(null)
+  const [previewUrl, setPreviewUrl] = useState(user.image || "");
 
   const form = useForm({
     defaultValues: {
@@ -26,12 +29,22 @@ export const EditUserProfileForm = ({ user }: IEditUserProfileForm) => {
     },
     onSubmit: async ({ value }) => {
       startTransition(async () => {
-        const result = await updateUserProfile(value);
-        if (result?.success) {
-          toast.success("Profile updated!", { position: "top-right" });
-        } else {
-          toast.error(result.error ?? "Something went wrong", { position: "top-right" });
-        }
+        const formData = new FormData();
+        formData.append("name", value.name)
+        formData.append("bio", value.bio)
+
+        const file = fileRef?.current?.files?.[0]
+        if (file) formData.append("image", file);
+
+        startTransition(async () => {
+          const result = await updateUser(formData);
+
+          if (result?.success) {
+            toast.success("Profile updated!");
+          } else {
+            toast.error(result?.error ?? "Something went wrong");
+          }
+        })
       })
     }
   })
@@ -51,18 +64,19 @@ export const EditUserProfileForm = ({ user }: IEditUserProfileForm) => {
                 </FieldLabel>
                 <div className="flex items-center gap-4">
                   <Avatar className="w-14 h-14">
-                    <AvatarImage src={field.state.value} />
+                    <AvatarImage src={previewUrl} />
                     <AvatarFallback className="bg-[#25a5a21c] text-brand font-bold">
                       {user.name?.charAt(0).toUpperCase()}
                     </AvatarFallback>
                   </Avatar>
                   <Input
-                    id={field.name}
-                    name={field.name}
-                    value={field.state.value}
-                    onChange={(e) => field.handleChange(e.target.value)}
-                    onBlur={field.handleBlur}
-                    placeholder="https://example.com/avatar.jpg"
+                    ref={fileRef}
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => {
+                      const file = e.target.files?.[0];
+                      if (file) setPreviewUrl(URL.createObjectURL(file))
+                    }}
                     className="flex-1"
                   />
                 </div>

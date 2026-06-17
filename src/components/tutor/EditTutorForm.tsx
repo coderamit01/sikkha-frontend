@@ -1,7 +1,7 @@
 "use client"
 
 import { updateTutor } from "@/actions/TutorProfile.action";
-import { IUser, Gender } from "@/types/user.types";
+import { Gender } from "@/types/user.types";
 import { useForm } from "@tanstack/react-form";
 import { useTransition } from "react";
 import { toast } from "sonner";
@@ -9,26 +9,27 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { FieldLabel } from "@/components/ui/field";
+import { ITutorDetails } from "@/types/tutor.types";
 
-export interface IEditTutorProfileForm {
-  user: IUser
-}
 
-export const EditTutorForm = ({ user }: IEditTutorProfileForm) => {
+export const EditTutorForm = ({ tutor }: { tutor: ITutorDetails }) => {
+
   const [isPending, startTransition] = useTransition();
 
   const form = useForm({
     defaultValues: {
-      name: user.tutor?.name,
-      contactNumber: user.tutor?.contactNumber || "",
-      gender: user.tutor?.gender || Gender.MALE,
-      hourlyRate: user.tutor?.hourlyRate || "",
-      yearsExperience: user.tutor?.yearsExperience || "",
-      isAvailable: user.tutor?.isAvailable ?? true
+      institute: tutor?.institute || "",
+      department: tutor?.department || "",
+      contactNumber: tutor?.contactNumber || "",
+      gender: tutor?.gender || Gender.MALE,
+      hourlyRate: tutor?.hourlyRate || "",
+      yearsExperience: tutor?.yearsExperience || "",
+      isAvailable: tutor?.isAvailable ?? true
     },
     onSubmit: async ({ value }) => {
       startTransition(async () => {
         const result = await updateTutor(value);
+        
         if (result?.success) {
           toast.success("Tutor profile updated!", { position: "top-right" });
         } else {
@@ -44,12 +45,12 @@ export const EditTutorForm = ({ user }: IEditTutorProfileForm) => {
         onSubmit={(e) => { e.preventDefault(); form.handleSubmit() }}
         className="space-y-5"
       >
-        <form.Field name="name">
+        <form.Field name="institute">
           {(field) => {
             return (
               <div>
                 <FieldLabel className="text-sm font-medium text-gray-700 block mb-1.5">
-                  Name
+                  Institute
                 </FieldLabel>
                 <Input
                   id={field.name}
@@ -62,6 +63,24 @@ export const EditTutorForm = ({ user }: IEditTutorProfileForm) => {
             )
           }}
         </form.Field>
+        <form.Field name="department">
+          {(field) => {
+            return (
+              <div>
+                <FieldLabel className="text-sm font-medium text-gray-700 block mb-1.5">
+                  Department                </FieldLabel>
+                <Input
+                  id={field.name}
+                  name={field.name}
+                  value={field.state.value}
+                  onChange={(e) => field.handleChange(e.target.value)}
+                  onBlur={field.handleBlur}
+                />
+              </div>
+            )
+          }}
+        </form.Field>
+
         <form.Field name="contactNumber">
           {(field) => {
             return (

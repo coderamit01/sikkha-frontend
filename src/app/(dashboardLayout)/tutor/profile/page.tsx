@@ -28,7 +28,7 @@ const TutorProfile = async () => {
       </div>
 
       <div className="bg-white rounded-2xl border border-gray-200 p-6">
-        <div className="flex items-center gap-5">
+        <div className="flex items-start gap-5">
           <Avatar className="w-20 h-20">
             <AvatarImage src={image ?? ""} alt={name} />
             <AvatarFallback className="bg-[#25a5a21c] text-brand text-2xl font-bold">
@@ -37,7 +37,11 @@ const TutorProfile = async () => {
           </Avatar>
           <div className="space-y-2">
             <h2 className="text-xl font-bold text-gray-900">{name}</h2>
-            <span className="text-slate-500">{tutor?.yearsExperience} Years Experience</span>
+            <p className="text-slate-800 mb-0">{tutor?.institute}</p>
+            <p className="text-slate-800 mb-0">{tutor?.department}</p>
+            {
+              tutor?.yearsExperience as number > 0 ? <p className="text-slate-500 mb-0">{tutor?.yearsExperience} Years Experience</p> : ""
+            }
             <div className="flex items-center gap-2 py-2">
               <Badge className="bg-violet-50 text-brand hover:bg-violet-50">
                 {role}
@@ -47,13 +51,7 @@ const TutorProfile = async () => {
               ) : (
                 <Badge className="bg-red-50 text-red-500 hover:bg-red-50">Unverified</Badge>
               )}
-              {
-                tutor?.isAvailable ? (
-                  <Badge className="bg-green-50 text-green-600 hover:bg-green-50">Available</Badge>
-                ) : (
-                  <Badge className="bg-red-50 text-red-500 hover:bg-red-50">Unavailable</Badge>
-                )
-              }
+
             </div>
             <div className="flex items-center gap-2">
               <div className="flex">

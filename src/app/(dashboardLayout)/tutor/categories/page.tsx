@@ -6,16 +6,15 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { getAllSubject } from "@/services/subject.service";
-import SubjectTable from "@/components/table/SubjectTable";
-import { Subject } from "@/types/subject.types";
 import { Category } from "@/types/category.types";
 import { getAllCategory } from "@/services/category.service";
-import SubjectAddForm from "@/components/forms/SubjectAddForm";
+import CategoryTable from "@/components/table/CategoryTable";
+import { getMe } from "@/lib/getMe";
+import CategoryAddForm from "@/components/forms/CategoryAddForm";
 
 const TutorSubject = async () => {
-  const data = await getAllSubject();
-  const subjects: Subject[] = data?.data || [];
+  const profileRes = await getMe();
+  const myCategories: Category[] = profileRes?.data?.tutor?.category || null;
   const categoryData = await getAllCategory();
   const categories: Category[] = categoryData?.data;
 
@@ -35,8 +34,8 @@ const TutorSubject = async () => {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {subjects.map((subject) => (
-                  <SubjectTable key={subject.id} subject={subject} categories={categories} />
+                {myCategories.map((category) => (
+                  <CategoryTable key={category.id} category={category} />
                 ))}
               </TableBody>
             </Table>
@@ -44,7 +43,7 @@ const TutorSubject = async () => {
         </Card>
       </div>
       <div className="col-span-12 lg:col-span-5">
-        <SubjectAddForm categories={categories} />
+        <CategoryAddForm categories={categories} />
       </div>
     </div>
   )
