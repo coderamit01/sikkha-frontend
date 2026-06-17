@@ -9,15 +9,15 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Field, FieldError, FieldGroup } from "@/components/ui/field";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { IAvailability } from "@/types/availability.types";
+import { DayOfWeek, IAvailability } from "@/types/availability.types";
 import { useForm } from "@tanstack/react-form";
 import { toast } from "sonner";
 import { updateAvailabilitySchema } from "@/validation/availabilitySchema";
 import { updateAvailability } from "@/actions/availability.action";
-import { toLocalTimeInput } from "@/utils/localTime";
 
 const UpdateAvailabilityModal = ({
   isOpen,
@@ -28,24 +28,25 @@ const UpdateAvailabilityModal = ({
   setIsOpen: (isOpen: boolean) => void;
   available: IAvailability;
 }) => {
-  const { id, startTime, endTime } = available;
-
-  const originalDate = new Date(startTime).toLocaleDateString("en-CA");
+  const { id, day, startTime, endTime } = available;
+  const days = Object.keys(DayOfWeek);
 
   const form = useForm({
     defaultValues: {
-      startTime: toLocalTimeInput(startTime),
-      endTime: toLocalTimeInput(endTime),
+      day,
+      startTime,
+      endTime,
     },
     validators: {
       onSubmit: updateAvailabilitySchema,
     },
     onSubmit: async ({ value }) => {
       try {
-        const start = new Date(`${originalDate}T${value.startTime}`);
-        const end = new Date(`${originalDate}T${value.endTime}`);
-
-        const result = await updateAvailability(id, { startTime: start, endTime: end });
+        const result = await updateAvailability(id, {
+          day: value.day as DayOfWeek,
+          startTime: value.startTime,
+          endTime: value.endTime,
+        });
 
         if (result?.success) {
           toast.success("Availability updated successfully", {
@@ -77,6 +78,35 @@ const UpdateAvailabilityModal = ({
           }}
         >
           <FieldGroup>
+            <form.Field name="day">
+              {(field) => {
+                const isInvalid =
+                  field.state.meta.isTouched && !field.state.meta.isValid;
+                return (
+                  <div>
+                    <FieldLabel className="block text-sm font-medium text-gray-700 mb-1">
+                      Day
+                    </FieldLabel>
+                    <Select value={field.state.value} onValueChange={field.handleChange}>
+                      <SelectTrigger className="w-full">
+                        <SelectValue placeholder="Select day" />
+                      </SelectTrigger>
+                      <SelectContent className="w-full">
+                        <SelectGroup>
+                          <SelectLabel>Days</SelectLabel>
+                          {days.map((k, idx) => (
+                            <SelectItem key={idx} value={k} className="capitalize">
+                              {k.toLocaleLowerCase()}
+                            </SelectItem>
+                          ))}
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                    {isInvalid && <FieldError errors={field.state.meta.errors} />}
+                  </div>
+                );
+              }}
+            </form.Field>
             <form.Field name="startTime">
               {(field) => {
                 const isInvalid =

@@ -1,3 +1,13 @@
+export enum DayOfWeek {
+  SATURDAY = "SATURDAY",
+  SUNDAY = "SUNDAY",
+  MONDAY = "MONDAY",
+  TUESDAY = "TUESDAY",
+  WEDNESDAY = "WEDNESDAY",
+  THURSDAY = "THURSDAY",
+  FRIDAY = "FRIDAY",
+}
+
 export interface IAvailability {
   id: string,
   tutorId: string,
@@ -10,6 +20,7 @@ export interface IAvailability {
 }
 
 export interface IAvailabilityPayload {
-  startTime: Date,
-  endTime: Date,
+  day: DayOfWeek,
+  startTime: string,
+  endTime: string,
 }

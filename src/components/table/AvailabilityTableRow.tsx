@@ -7,23 +7,18 @@ import { Badge } from "../ui/badge";
 import { useState, useTransition } from "react";
 import { toast } from "sonner";
 import { deleteAvailability } from "@/actions/availability.action";
-import { is } from "zod/v4/locales";
 import UpdateAvailabilityModal from "@/components/modal/UpdateAvailabilityModal";
+import { TimeDifference } from "@/utils/timeDifference";
 
 const AvailabilityTableRow = ({ available }: { available: IAvailability }) => {
   const [isPending, startTransition] = useTransition();
   const [isOpen, setIsOpen] = useState(false);
   const { id, startTime, endTime, isBooked } = available;
 
-  const availableDay = new Date(startTime).toLocaleDateString("en-CA", {
-    weekday: "long",
-  });
   const start = localTime(startTime);
   const end = localTime(endTime);
 
-  const diffMs = Number(new Date(endTime)) - Number(new Date(startTime));
-  const diffMins = diffMs / 1000 / 60;
-  const diffHours = diffMins / 60;
+  const diffHours = TimeDifference(startTime,endTime);
 
   const handleDeleteAvailability = () => {
     startTransition(async () => {
@@ -47,7 +42,7 @@ const AvailabilityTableRow = ({ available }: { available: IAvailability }) => {
 
   return (
     <TableRow>
-      <TableCell>{availableDay}</TableCell>
+      <TableCell className="capitalize">{available.day.toLocaleLowerCase()}</TableCell>
       <TableCell>{start}</TableCell>
       <TableCell>{end}</TableCell>
       <TableCell>{diffHours} hours</TableCell>

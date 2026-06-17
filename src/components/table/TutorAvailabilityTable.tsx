@@ -16,7 +16,7 @@ const TutorAvailabilityTable = ({
     <Table className="text-base">
       <TableHeader>
         <TableRow>
-          <TableHead>Date</TableHead>
+          <TableHead>Day</TableHead>
           <TableHead>Start Time</TableHead>
           <TableHead>End Time</TableHead>
           <TableHead>Duration</TableHead>

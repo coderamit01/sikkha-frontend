@@ -11,7 +11,7 @@ import { localTime } from "@/utils/localTime";
 const TutorBookingTable = ({ book }: { book: IBooking }) => {
   const [isOpen, setIsOpen] = useState(false);
   const { availability, id, status, totalPrice, student, scheduleAt } = book;
-  const scheduleDate = new Date(scheduleAt);
+
   const handleOpen = () => {
     setIsOpen(true);
   };

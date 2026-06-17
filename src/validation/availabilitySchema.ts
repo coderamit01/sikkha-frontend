@@ -1,45 +1,41 @@
 
+import { DayOfWeek } from "@/types/availability.types";
 import * as z from "zod";
+
+const toMinutes = (time: string) => {
+  const [h, m] = time.split(":").map(Number);
+  return h! * 60 + m!;
+};
 
 export const availabilitySchema = z
   .object({
-    date: z.string().min(1, "Date is required"),
+    day: z.enum(Object.values(DayOfWeek) as [string, ...string[]]),
     startTime: z.string().min(1, "Start time is required"),
     endTime: z.string().min(1, "End time is required"),
   })
   .refine(
     (data) => {
-      const startDateTime = new Date(`${data.date}T${data.startTime}`);
-      return startDateTime > new Date();
-    },
-    { message: "Availability cannot be in the past", path: ["startTime"] },
-  )
-  .refine(
-    (data) => {
-      const start = new Date(`${data.date}T${data.startTime}`);
-      const end = new Date(`${data.date}T${data.endTime}`);
-      return start < end;
+      return toMinutes(data.startTime) < toMinutes(data.endTime);
     },
     {
-      message: "End time must be after start time",
-      path: ["endTime"]
-    },
+      message: "Start time must be before end time",
+      path: ["endTime"],
+    }
   );
 
 
-  export const updateAvailabilitySchema = z
+export const updateAvailabilitySchema = z
   .object({
+    day: z.enum(Object.values(DayOfWeek) as [string, ...string[]]),
     startTime: z.string().min(1, "Start time is required"),
     endTime: z.string().min(1, "End time is required"),
   })
   .refine(
     (data) => {
-      const start = new Date(`1970-01-01T${data.startTime}`);
-      const end = new Date(`1970-01-01T${data.endTime}`);
-      return start < end;
+      return toMinutes(data.startTime) < toMinutes(data.endTime);
     },
     {
-      message: "End time must be after start time",
+      message: "Start time must be before end time",
       path: ["endTime"],
     }
   );

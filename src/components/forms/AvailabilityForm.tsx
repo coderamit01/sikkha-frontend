@@ -8,15 +8,17 @@ import { Button } from "../ui/button";
 import { toast } from "sonner";
 import { createAvailability } from "@/actions/availability.action";
 import { availabilitySchema } from "@/validation/availabilitySchema";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { DayOfWeek } from "@/types/availability.types";
 
-
+const days = Object.keys(DayOfWeek);
 
 const AvailabilityForm = () => {
   const [isPending, starTransition] = useTransition();
 
   const form = useForm({
     defaultValues: {
-      date: "",
+      day: "",
       startTime: "",
       endTime: "",
     },
@@ -26,12 +28,10 @@ const AvailabilityForm = () => {
     onSubmit: async ({ value }) => {
       starTransition(async () => {
         try {
-          const start = new Date(`${value.date}T${value.startTime}`);
-          const end = new Date(`${value.date}T${value.endTime}`);
-
           const result = await createAvailability({
-            startTime: start,
-            endTime: end,
+            day: value.day as DayOfWeek,
+            startTime: value.startTime,
+            endTime: value.endTime,
           });
           if (result?.success) {
             toast.success("Availability created successfuly", {
@@ -58,26 +58,36 @@ const AvailabilityForm = () => {
         }}
         className="space-y-6"
       >
-        <form.Field name="date">
+        <form.Field name="day">
           {(field) => {
             const isInvalid =
               field.state.meta.isTouched && !field.state.meta.isValid;
             return (
               <div>
                 <FieldLabel className="block text-sm font-medium text-gray-700 mb-1">
-                  Select Date
+                  Day
                 </FieldLabel>
-                <Input
-                  type="date"
-                  value={field.state.value}
-                  onChange={(e) => field.handleChange(e.target.value)}
-                  onBlur={field.handleBlur}
-                />
+                <Select value={field.state.value} onValueChange={field.handleChange}>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Select day" />
+                  </SelectTrigger>
+                  <SelectContent className="w-full">
+                    <SelectGroup>
+                      <SelectLabel>Days</SelectLabel>
+                      {days.map((k, idx) => (
+                        <SelectItem key={idx} value={k} className="capitalize">
+                          {k.toLocaleLowerCase()}
+                        </SelectItem>
+                      ))}
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
                 {isInvalid && <FieldError errors={field.state.meta.errors} />}
               </div>
             );
           }}
         </form.Field>
+
 
         <form.Field name="startTime">
           {(field) => {
