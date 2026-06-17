@@ -1,11 +1,13 @@
 import PageTitle from "@/components/frontend/PageTitle";
 import TutorSidebar from "@/components/public/TutorSidebar";
 import TutorList from "@/components/public/TutorList";
-import { getAllTutors, getAllTutorsPublic } from "@/services/tutor.service";
+import { getAllTutorsPublic } from "@/services/tutor.service";
 import { ITutorDetails } from "@/types/tutor.types";
 import SearchTutor from "@/components/public/SearchTutor";
-import { getAllCategory } from "@/services/category.service";
+import { getAllCategoryPublic } from "@/services/category.service";
 import { Category } from "@/types/category.types";
+import { Suspense } from "react";
+import TutorListLoader from "@/components/loader/TutorListLoader";
 
 interface SearchParams {
   category?: string;
@@ -33,7 +35,7 @@ export default async function TutorsPage({
   const data = await getAllTutorsPublic(filters);
   const tutors: ITutorDetails[] = data?.data?.tutors || [];
 
-  const categoryData = await getAllCategory();
+  const categoryData = await getAllCategoryPublic();
   const categories: Category[] = categoryData?.data || [];
 
   return (
@@ -57,7 +59,9 @@ export default async function TutorsPage({
           </div>
           <div className="col-span-12 lg:col-span-9">
             <SearchTutor search={search} />
-            <TutorList tutors={tutors} />
+            <Suspense fallback={<TutorListLoader />}>
+              <TutorList tutors={tutors} />
+            </Suspense>
           </div>
         </div>
       </div>

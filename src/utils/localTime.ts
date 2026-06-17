@@ -1,8 +1,10 @@
-export const localTime = (time: Date) => {
-  const date = new Date(time);
+export const localTime = (time: string) => {
+  const [hours, minute] = time.split(":")
+  const date = new Date();
+  date.setHours(Number(hours), Number(minute), 0);
   return date.toLocaleTimeString("en-US", {
-    hour: "2-digit",
-    minute: "2-digit",
+    hour: "numeric",
+    minute: "numeric",
     hour12: true,
   })
 }

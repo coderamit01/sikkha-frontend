@@ -1,4 +1,4 @@
-import { StarIcon, HeartIcon } from "./Icons";
+import { StarIcon } from "./Icons";
 import { ITutorDetails } from "@/types/tutor.types";
 import Link from "next/link";
 import DummyTutor from "@/assets/tutor.webp";
@@ -40,7 +40,7 @@ export function Tutors({ tutors }: { tutors: ITutorDetails[] }) {
               <div className="flex items-center justify-between mt-auto pt-3.5 border-t border-line">
                 <div className="font-display text-[20px] font-bold text-ink">
                   ${t.hourlyRate}
-                  <small className="text-[13px] text-muted font-medium">
+                  <small className="text-[13px] text-slate-500 font-medium">
                     {" "}
                     / hr
                   </small>

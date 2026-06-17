@@ -34,6 +34,8 @@ export interface ITutorDetails {
   contactNumber: string | null;
   gender: Gender;
   userId: string;
+  institute: string,
+  department: string,
   hourlyRate: number | string; 
   yearsExperience: number | string;
   averageRating: number | string;
@@ -41,7 +43,7 @@ export interface ITutorDetails {
   createdAt: Date | string;
   updatedAt: Date | string;
   reviews: IReview[],
-  availablity: IAvailability[],
+  availability: IAvailability[],
   bookings: TutorBooking[],
   category: Category[],
   user: IUser

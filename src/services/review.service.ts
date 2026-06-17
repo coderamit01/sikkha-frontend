@@ -1,11 +1,10 @@
-import { serverFetch } from "@/lib/fetchApi";
+import { clientFetch, serverFetch } from "@/lib/fetchApi";
 
 
 export const getAllReview = async () => {
   try {
-    const data = await serverFetch(`/reviews`, {
-      method: "GET",
-      cache: "no-cache",
+    const data = await clientFetch(`/reviews`, {
+      next: {revalidate: 60}
     })
     return data;
   } catch (error: any) {

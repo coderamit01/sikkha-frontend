@@ -15,11 +15,11 @@ const CategorySection = ({ categories }: { categories: Category[] }) => {
           </div>
         </div>
         <Suspense fallback={<CategoriesLoader />}>
-          <Categories categories={categories} />;
+          <Categories categories={categories} />
         </Suspense>
       </div>
     </section>
-  )
-}
+  );
+};
 
 export default CategorySection;

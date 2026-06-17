@@ -3,15 +3,14 @@ import { Hero } from "@/components/public/Hero";
 import { HowItWorks } from "@/components/public/HowItWorks";
 import { Testimonials } from "@/components/public/Testimonials";
 import { Tutors } from "@/components/public/Tutors";
-import { getAllCategory } from "@/services/category.service";
+import { getAllCategoryPublic } from "@/services/category.service";
 import { getAllReview } from "@/services/review.service";
 import { getAllTutorsPublic } from "@/services/tutor.service";
-
 
 export default async function Home() {
   const TutorRes = await getAllTutorsPublic();
   const ReviewRes = await getAllReview();
-  const categoryRes = await getAllCategory();
+  const categoryRes = await getAllCategoryPublic();
 
   const tutors = TutorRes?.data.tutors ?? [];
   const reviews = ReviewRes?.data ?? [];

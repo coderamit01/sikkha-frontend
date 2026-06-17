@@ -1,8 +1,9 @@
 export interface IAvailability {
   id: string,
   tutorId: string,
-  startTime: Date,
-  endTime: Date,
+  day: string,
+  startTime: string,
+  endTime: string,
   isBooked: boolean,
   createdAt: Date,
   updatedAt: Date

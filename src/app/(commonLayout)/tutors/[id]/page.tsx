@@ -41,6 +41,8 @@ const TutorDetailsPage = async ({ params }: TutorDetailsPageParams) => {
   const {
     id: tutorId,
     user,
+    institute,
+    department,
     yearsExperience,
     averageRating,
     reviews,
@@ -59,19 +61,27 @@ const TutorDetailsPage = async ({ params }: TutorDetailsPageParams) => {
             <div className="bg-white rounded-3xl overflow-hidden">
               <div className="p-8 bg-linear-to-br from-green-50 to-white rounded-2xl">
                 <div className="flex items-start gap-6 mb-8">
-                  <div className="w-28 h-28 rounded-full bg-[#25a5a21c] text-brand flex items-center justify-center text-6xl shrink-0 shadow-md">
+                  <div className="w-28 h-28 rounded bg-[#25a5a21c] text-brand flex items-center justify-center text-6xl shrink-0 shadow-md">
                     {user?.image ? (
                       <img
                         src={user?.image || DummyTutor.src}
                         alt={user?.name}
-                        className="object-cover"
+                        className="object-cover rounded"
                       />
-                    ) : user?.name.charAt(0).toUpperCase()}
+                    ) : (
+                      user?.name.charAt(0).toUpperCase()
+                    )}
                   </div>
                   <div className="flex-1">
                     <h1 className="text-4xl font-bold text-gray-900 mb-2">
                       {user?.name}
                     </h1>
+                    <p className="text-base font-semibold text-slate-800">
+                      {institute && institute}
+                    </p>
+                    <p className="text-base font-semibold text-slate-600">
+                      {department && department}
+                    </p>
 
                     <div className="flex flex-wrap gap-4 mb-4">
                       <div className="flex items-center gap-2">

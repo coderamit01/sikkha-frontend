@@ -7,11 +7,12 @@ const TutorCard = ({ tutor }: { tutor: ITutorDetails }) => {
   const {
     id,
     user,
+    institute,
+    department,
     hourlyRate,
     yearsExperience,
     averageRating,
-    category
-    ,
+    category,
   } = tutor;
 
   return (
@@ -22,21 +23,29 @@ const TutorCard = ({ tutor }: { tutor: ITutorDetails }) => {
     >
       <div className="flex gap-4">
         {user?.image ? (
-          <div className="w-14 h-14 rounded-full bg-violet-100 ring-2 ring-violet-100 shrink-0 flex items-center justify-center text-2xl">
+          <div className="w-14 h-14 rounded bg-violet-100 ring-2 ring-violet-100 shrink-0 flex items-center justify-center text-2xl">
             <img
               src={user?.image || DummyTutor.src}
               alt={user?.name}
-              className="object-cover"
+              className="object-cover rounded"
             />
           </div>
         ) : (
-          <div className="w-14 h-14 rounded-full bg-[#f2fbf9] text-brand flex items-center justify-center text-2xl font-semibold">
+          <div className="w-14 h-14 rounded bg-[#f2fbf9] text-brand flex items-center justify-center text-2xl font-semibold">
             {user?.name.charAt(0).toUpperCase()}
           </div>
         )}
 
         <div className="flex-1 min-w-0">
-          <h3 className="text-base font-semibold text-gray-900">{user?.name}</h3>
+          <h3 className="text-base font-semibold text-gray-900">
+            {user?.name}
+          </h3>
+          <p className="text-sm text-gray-800 capitalize">
+            {institute && institute}
+          </p>
+          <p className="text-sm text-gray-800 capitalize">
+            {department && department}
+          </p>
           <p className="text-xs text-gray-500 capitalize">
             {yearsExperience} years experience
           </p>
