@@ -24,7 +24,7 @@ const UserBookingsPage = async () => {
           <TableHeader>
             <TableRow>
               <TableHead>Tutor Name</TableHead>
-              <TableHead>Session Date</TableHead>
+              <TableHead>Session Day</TableHead>
               <TableHead>Start</TableHead>
               <TableHead>End</TableHead>
               <TableHead>Price</TableHead>

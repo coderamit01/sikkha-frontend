@@ -41,7 +41,7 @@ export const BookingStatusModal = ({
   const bookStatus = Object.keys(BookingStatus).filter((k) => {
     switch (role) {
       case Role.STUDENT:
-        return k !== BookingStatus.COMPLETED;
+        return k !== BookingStatus.COMPLETED && k !== BookingStatus.CONFIRMED;
       case Role.TUTOR:
         return k !== BookingStatus.CANCELLED;
       case Role.ADMIN:
@@ -53,6 +53,7 @@ export const BookingStatusModal = ({
     startTransition(async () => {
       try {
         const result = await updateBookingStatus(id, selectedStatus);
+        console.log(result);
         if (result?.success) {
           toast.success("Status updated successfully", {
             position: "top-right",

@@ -6,6 +6,7 @@ import { IAvailability } from "./availability.types";
 export enum BookingStatus {
   CONFIRMED = 'CONFIRMED',
   COMPLETED = 'COMPLETED',
+  PENDING = 'PENDING',
   CANCELLED = 'CANCELLED'
 }
 

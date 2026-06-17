@@ -6,11 +6,12 @@ import { SquarePen } from "lucide-react";
 import { useState } from "react";
 import { Role } from "@/types/user.types";
 import { BookingStatusModal } from "../modal/BookingStatusModal";
+import { localTime } from "@/utils/localTime";
 
 export function UserBookTable({ book }: { book: IBooking }) {
   const [isOpen, setIsOpen] = useState(false);
   const { availability, id, status, totalPrice, tutor, scheduleAt } = book;
-  const scheduleDate = new Date(scheduleAt);
+
   const handleOpen = () => {
     setIsOpen(true);
   };
@@ -19,16 +20,17 @@ export function UserBookTable({ book }: { book: IBooking }) {
     status === BookingStatus.CANCELLED || status === BookingStatus.COMPLETED;
   return (
     <TableRow>
-      <TableCell className="font-medium">{tutor.name}</TableCell>
-      <TableCell>{scheduleDate.toLocaleDateString()}</TableCell>
-      <TableCell>
-        {new Date(availability.startTime).toLocaleTimeString()}
-      </TableCell>
-      <TableCell>
-        {new Date(availability.endTime).toLocaleTimeString()}
-      </TableCell>
+      <TableCell className="font-medium">{tutor?.user?.name}</TableCell>
+      <TableCell>{availability.day}</TableCell>
+      <TableCell>{localTime(availability.startTime)}</TableCell>
+      <TableCell>{localTime(availability.endTime)}</TableCell>
       <TableCell>৳{totalPrice}</TableCell>
       <TableCell className="lowercase">
+        {status === BookingStatus.PENDING && (
+          <Badge className="bg-orange-50 text-orange-700 dark:bg-orange-950 dark:text-orange-300">
+            {status}
+          </Badge>
+        )}
         {status === BookingStatus.CONFIRMED && (
           <Badge className="bg-blue-50 text-blue-700 dark:bg-blue-950 dark:text-blue-300">
             {status}
