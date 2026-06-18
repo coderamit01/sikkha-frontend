@@ -2,7 +2,6 @@ import { EditTutorForm } from "@/components/tutor/EditTutorForm";
 import { EditUserProfileForm } from "@/components/tutor/EditUserProfileForm";
 import { getMe } from "@/lib/getMe";
 
-
 const EditProfile = async () => {
   const { data: user } = await getMe();
   return (
@@ -13,10 +12,10 @@ const EditProfile = async () => {
           Update your personal information
         </p>
       </div>
-      <EditTutorForm tutor={user.tutor} />
       <EditUserProfileForm user={user} />
+      <EditTutorForm tutor={user.tutor} />
     </div>
   );
-}
+};
 
 export default EditProfile;

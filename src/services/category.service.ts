@@ -10,6 +10,17 @@ export const getAllCategory = async() => {
       console.log("Categories fetch failed:", error.message);
     }
 }
+export const getMyCategories = async() => {
+  try {
+      const data = await serverFetch("/categories/me",{
+        cache: "no-cache",
+      })
+      return data;
+    } catch (error:any) {
+      return {success:false, message: error.message}
+    }
+}
+
 export const getAllCategoryPublic = async() => {
   try {
       const data = await clientFetch("/categories",{

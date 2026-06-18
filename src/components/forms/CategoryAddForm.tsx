@@ -9,12 +9,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Category } from "@/types/category.types"
+import { Category } from "@/types/category.types";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useState, useTransition } from "react";
 import { toast } from "sonner";
-import { createSubject } from "@/actions/subject.action";
+import { addCategory } from "@/actions/category.action";
 
 const CategoryAddForm = ({ categories }: { categories: Category[] }) => {
   const [value, setValue] = useState<string>("");
@@ -28,8 +28,7 @@ const CategoryAddForm = ({ categories }: { categories: Category[] }) => {
     }
     startTransition(async () => {
       try {
-        const result = await createSubject(value);
-        console.log(result);
+        const result = await addCategory(value);
         if (result?.success) {
           toast.success("Subject Added successfully", {
             position: "top-right",
@@ -41,20 +40,17 @@ const CategoryAddForm = ({ categories }: { categories: Category[] }) => {
       } catch (error: any) {
         toast.error("Failed to add subject", { position: "top-right" });
       }
-    })
+    });
   };
 
   return (
     <Card>
       <CardHeader className="text-start">
-        <CardTitle className="text-xl">Add Subject</CardTitle>
+        <CardTitle className="text-xl">Add Categories</CardTitle>
       </CardHeader>
       <CardContent>
         <form>
-          <Select
-            value={value}
-            onValueChange={setValue}
-          >
+          <Select value={value} onValueChange={setValue}>
             <SelectTrigger className="w-full">
               <SelectValue placeholder="Select Subject" />
             </SelectTrigger>
@@ -73,13 +69,14 @@ const CategoryAddForm = ({ categories }: { categories: Category[] }) => {
           <Button
             onClick={handleCreate}
             size="default"
-            className="py-5 cursor-pointer bg-brand hover:bg-brand-dark text-white mt-3">
+            className="py-5 cursor-pointer bg-brand hover:bg-brand-dark text-white mt-3"
+          >
             {isPending ? "Adding..." : "Add"}
           </Button>
         </form>
       </CardContent>
-    </Card >
-  )
+    </Card>
+  );
 };
 
 export default CategoryAddForm;

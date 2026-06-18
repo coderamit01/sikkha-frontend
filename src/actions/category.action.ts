@@ -16,6 +16,30 @@ export const createCategory = async (payload: ICategory) => {
     console.log("Categories fetch failed:", error.message);
   }
 }
+export const addCategory = async (categoryId: string) => {
+  try {
+    const data = await serverFetch("/categories/me/add", {
+      method: "POST",
+      body: JSON.stringify({categoryId}),
+    })
+    revalidatePath("/categories")
+    return data;
+  } catch (error: any) {
+    console.log("Categories fetch failed:", error.message);
+  }
+}
+export const removeCategory = async (categoryId: string) => {
+  try {
+    const data = await serverFetch(`/categories/me/${categoryId}`, {
+      method: "PUT",
+      body: JSON.stringify({categoryId}),
+    })
+    revalidatePath("/categories")
+    return data;
+  } catch (error: any) {
+    console.log("Categories fetch failed:", error.message);
+  }
+}
 
 export const updateCategory = async (id: string, name: string) => {
   try {

@@ -34,17 +34,18 @@ const CategoryUpdateModal = ({
       try {
         const result = await updateCategory(id, value);
         if (result?.success) {
-          toast.success("Category updated successfully", { position: "top-right" })
+          toast.success("Category updated successfully", {
+            position: "top-right",
+          });
           setIsOpen(false);
         } else {
-          toast.error("Failed to update category", { position: "top-right" })
+          toast.error("Failed to update category", { position: "top-right" });
         }
       } catch (error) {
-        toast.error("Failed to update category", { position: "top-right" })
+        toast.error("Failed to update category", { position: "top-right" });
       }
     });
-  }
-
+  };
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -54,7 +55,9 @@ const CategoryUpdateModal = ({
         </DialogHeader>
 
         <form>
-          <Label htmlFor="name" className="pb-2">Name</Label>
+          <Label htmlFor="name" className="pb-2">
+            Name
+          </Label>
           <Input
             id="name"
             type="text"
@@ -63,7 +66,9 @@ const CategoryUpdateModal = ({
           />
           <DialogFooter className="pt-4">
             <DialogClose asChild>
-              <Button variant="outline" className="cursor-pointer">Cancel</Button>
+              <Button variant="outline" className="cursor-pointer">
+                Cancel
+              </Button>
             </DialogClose>
             <Button
               onClick={handleSubmit}
@@ -80,5 +85,3 @@ const CategoryUpdateModal = ({
 };
 
 export default CategoryUpdateModal;
-
-

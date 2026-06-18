@@ -2,7 +2,7 @@
 import { Category } from "@/types/category.types";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { SquarePen, Trash2 } from "lucide-react";
-import { deleteCategory } from "@/actions/category.action";
+import { removeCategory } from "@/actions/category.action";
 import { toast } from "sonner";
 import { useState } from "react";
 import CategoryUpdateModal from "@/components/modal/CategoryUpdateModal";
@@ -10,21 +10,24 @@ import CategoryUpdateModal from "@/components/modal/CategoryUpdateModal";
 const CategoryTable = ({ category }: { category: Category }) => {
   const [isOpen, setIsOpen] = useState(false);
   const { id, name } = category;
+  console.log(id, name);
   const handleDelete = async () => {
     try {
-      const result = await deleteCategory(id);
+      const result = await removeCategory(id);
       if (result?.success) {
-        toast.success("Category deleted successfully", { position: "top-right" })
+        toast.success("Category deleted successfully", {
+          position: "top-right",
+        });
       } else {
-        toast.error("Failed to delete category", { position: "top-right" })
+        toast.error("Failed to delete category", { position: "top-right" });
       }
     } catch (error) {
-      toast.error("Failed to delete category", { position: "top-right" })
+      toast.error("Failed to delete category", { position: "top-right" });
     }
-  }
+  };
   const handleOpen = () => {
     setIsOpen(true);
-  }
+  };
   return (
     <TableRow>
       <TableCell>{name}</TableCell>
