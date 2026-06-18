@@ -45,7 +45,7 @@ export const StudentSignUpForm = () => {
         form.reset();
       } catch (error: any) {
         console.log(error);
-        toast.error(error.response?.data?.message || "Registration failed");
+        toast.error(error.response?.data?.message || "Registration failed",{position: "top-right"});
       }
     },
   });

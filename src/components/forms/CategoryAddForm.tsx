@@ -46,7 +46,7 @@ const CategoryAddForm = ({ categories }: { categories: Category[] }) => {
   return (
     <Card>
       <CardHeader className="text-start">
-        <CardTitle className="text-xl">Add Categories</CardTitle>
+        <CardTitle className="text-base">Add Categories</CardTitle>
       </CardHeader>
       <CardContent>
         <form>

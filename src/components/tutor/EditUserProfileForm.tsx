@@ -37,12 +37,12 @@ export const EditUserProfileForm = ({ user }: IEditUserProfileForm) => {
         if (file) formData.append("image", file);
 
         startTransition(async () => {
-          const result = await updateUser(formData);
+          const result = await updateUser(user.id,formData);
 
           if (result?.success) {
-            toast.success("Profile updated!");
+            toast.success("Profile updated!",{position: "top-right"});
           } else {
-            toast.error(result?.error ?? "Something went wrong");
+            toast.error(result?.error ?? "Something went wrong",{position: "top-right"});
           }
         })
       })

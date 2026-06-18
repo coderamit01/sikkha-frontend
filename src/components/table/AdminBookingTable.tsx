@@ -9,7 +9,6 @@ import { BookingStatusModal } from "../modal/BookingStatusModal";
 import { localTime } from "@/utils/localTime";
 
 const AdminBookingTable = ({ book }: { book: IBooking }) => {
-  console.log(book);
   const [isOpen, setIsOpen] = useState(false);
   const { availability, id, status, totalPrice, tutor, student, scheduleAt } =
     book;

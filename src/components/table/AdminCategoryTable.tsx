@@ -2,17 +2,17 @@
 import { Category } from "@/types/category.types";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { SquarePen, Trash2 } from "lucide-react";
-import { removeCategory } from "@/actions/category.action";
+import { deleteCategory } from "@/actions/category.action";
 import { toast } from "sonner";
 import { useState } from "react";
 import CategoryUpdateModal from "@/components/modal/CategoryUpdateModal";
 
-const CategoryTable = ({ category }: { category: Category }) => {
+const AdminCategoryTable = ({ category }: { category: Category }) => {
   const [isOpen, setIsOpen] = useState(false);
   const { id, name } = category;
   const handleDelete = async () => {
     try {
-      const result = await removeCategory(id);
+      const result = await deleteCategory(id);
       if (result?.success) {
         toast.success("Category deleted successfully", {
           position: "top-right",
@@ -50,4 +50,4 @@ const CategoryTable = ({ category }: { category: Category }) => {
   );
 };
 
-export default CategoryTable;
+export default AdminCategoryTable;

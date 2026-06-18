@@ -10,6 +10,7 @@ import { getAllCategory } from "@/services/category.service";
 import CategoryTable from "@/components/table/CategoryTable";
 import { Category } from "@/types/category.types";
 import CategoryForm from "@/components/forms/CategoryForm";
+import AdminCategoryTable from "@/components/table/AdminCategoryTable";
 
 const AdminCategories = async () => {
   const data = await getAllCategory();
@@ -31,7 +32,7 @@ const AdminCategories = async () => {
               </TableHeader>
               <TableBody>
                 {categories.map((category) => (
-                  <CategoryTable key={category.id} category={category} />
+                  <AdminCategoryTable key={category.id} category={category} />
                 ))}
               </TableBody>
             </Table>

@@ -37,9 +37,9 @@ const EditProfileform = ({ user }: IEditProfileForm) => {
         const result = await updateUser(user.id,formData);
 
         if (result?.success) {
-          toast.success("Profile updated!");
+          toast.success("Profile updated!",{position: "top-right"});
         } else {
-          toast.error(result?.error ?? "Something went wrong");
+          toast.error(result?.error ?? "Something went wrong",{position: "top-right"});
         }
       });
     },

@@ -33,7 +33,7 @@ const CategoryForm = () => {
   return (
     <Card>
       <CardHeader className="text-start">
-        <CardTitle className="text-xl">Create Category</CardTitle>
+        <CardTitle className="text-base">Create Category</CardTitle>
       </CardHeader>
       <CardContent>
         <form>

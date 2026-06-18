@@ -47,7 +47,7 @@ export const TutorSignUpForm = () => {
         }
         form.reset();
       } catch (error: any) {
-        toast.error(error.response?.data?.message || "Registration failed");
+        toast.error(error.response?.data?.message || "Registration failed",{position: "top-right"});
       }
     },
   });
