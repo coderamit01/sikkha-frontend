@@ -34,7 +34,7 @@ const EditProfileform = ({ user }: IEditProfileForm) => {
       if (file) formData.append("image", file);
 
       startTransition(async () => {
-        const result = await updateUser(formData);
+        const result = await updateUser(user.id,formData);
 
         if (result?.success) {
           toast.success("Profile updated!");

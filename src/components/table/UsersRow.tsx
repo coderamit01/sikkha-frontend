@@ -5,14 +5,36 @@ import { SquarePen } from "lucide-react";
 import { Badge } from "../ui/badge";
 import { useState } from "react";
 import UpdateUserModal from "../modal/UpdateUserModal";
+import { Switch } from "@/components/ui/switch"
+import { updateUserStatus } from "@/actions/studentProfile.ction";
+import { toast } from "sonner";
+
 const UsersRow = ({ user }: { user: IUser }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isBanned, setIsBanned] = useState(user.isBanned);
 
-  const { name, email, role, emailVerified, isBanned } = user;
+  const { name, email, role, emailVerified } = user;
 
   const handleOpen = () => {
     setIsOpen(true);
   };
+
+  const handleBanToggle = async (checked: boolean) => {
+    setIsBanned(checked);
+    try {
+      const result = await updateUserStatus(user.id, checked);
+      if (result?.success) {
+        toast.success(checked ? "User banned" : "User unbanned", { position: "top-right" });
+      } else {
+        setIsBanned(!checked);
+        toast.error(result?.error || "Failed to update status", { position: "top-right" });
+      }
+    } catch (error) {
+      setIsBanned(!checked);
+      toast.error("Failed to update status", { position: "top-right" });
+    }
+  };
+
   return (
     <TableRow>
       <TableCell>{name}</TableCell>
@@ -39,6 +61,15 @@ const UsersRow = ({ user }: { user: IUser }) => {
             Active
           </Badge>
         )}
+      </TableCell>
+      <TableCell>
+        <div className="flex items-center space-x-2">
+          <Switch
+            id={`ban-${user.id}`}
+            checked={isBanned}
+            onCheckedChange={handleBanToggle}
+          />
+        </div>
       </TableCell>
       <TableCell className="text-right flex items-center gap-2 justify-end">
         <SquarePen

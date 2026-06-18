@@ -39,17 +39,22 @@ const UpdateUserModal = ({
   setIsOpen: (isOpen: boolean) => void;
   user: IUser;
 }) => {
-  const { id, name, email, isBanned, image, bio } = user;
+  const {id,name, email, isBanned, bio } = user;
   const form = useForm({
     defaultValues: {
       name: name || "",
       email: email || "",
-      isBanned: isBanned,
       bio: bio || "",
     },
     onSubmit: async ({ value }) => {
+      const formData = new FormData();
+      formData.append("name", value.name);
+      formData.append("email", value.email);
+      formData.append("bio", value.bio);
       try {
-        const result = await updateUser(id, value);
+        const result = await updateUser(id,formData);
+
+        console.log(result);
 
         if (result?.success) {
           toast.success("Updated user successfully", {
@@ -125,39 +130,6 @@ const UpdateUserModal = ({
                       <FieldError errors={field.state.meta.errors} />
                     )}
                   </Field>
-                );
-              }}
-            </form.Field>
-
-            <form.Field name="isBanned">
-              {(field) => {
-                const isInvalid =
-                  field.state.meta.isTouched && !field.state.meta.isValid;
-                return (
-                  <>
-                    <FieldLabel>Status</FieldLabel>
-                    <Select
-                      value={field.state.value ? "Banned" : "Active"}
-                      onValueChange={(value) =>
-                        field.handleChange(value === "Banned")
-                      }
-                    >
-                      <SelectTrigger className="w-full">
-                        <SelectValue
-                          placeholder={isBanned ? "Banned" : "Active"}
-                        />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectGroup>
-                          <SelectItem value="Banned">Banned</SelectItem>
-                          <SelectItem value="Active">Active</SelectItem>
-                        </SelectGroup>
-                      </SelectContent>
-                    </Select>
-                    {isInvalid && (
-                      <FieldError errors={field.state.meta.errors} />
-                    )}
-                  </>
                 );
               }}
             </form.Field>

@@ -23,6 +23,7 @@ const UserListTable = ({ users }: { users: IUser[] }) => {
                 <TableHead>Verified</TableHead>
                 <TableHead>Role</TableHead>
                 <TableHead>Status</TableHead>
+                <TableHead>Ban/Unban</TableHead>
                 <TableHead className="text-right">Action</TableHead>
               </TableRow>
             </TableHeader>

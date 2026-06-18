@@ -15,7 +15,7 @@ const TopStats = ({ users, bookings }: { users: IUser[]; bookings: IBooking[] })
     <>
       <StatsCard
         icon={<Users className="h-10 w-10 p-2 rounded bg-blue-50 text-blue-700" />}
-        title="Total Users"
+        title="Total Students"
         count={stats.totalUser}
       />
       <StatsCard
