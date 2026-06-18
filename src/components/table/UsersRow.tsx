@@ -10,6 +10,7 @@ import { updateUserStatus } from "@/actions/studentProfile.ction";
 import { toast } from "sonner";
 
 const UsersRow = ({ user }: { user: IUser }) => {
+ 
   const [isOpen, setIsOpen] = useState(false);
   const [isBanned, setIsBanned] = useState(user.isBanned);
 

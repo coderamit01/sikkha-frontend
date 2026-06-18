@@ -8,8 +8,11 @@ import {
 } from "@/components/ui/table";
 import UsersRow from "./UsersRow";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
+import { getAllUser } from "@/services/auth.service";
 
-const UserListTable = ({ users }: { users: IUser[] }) => {
+const UserListTable = async() => {
+  const data = await getAllUser();
+  const users: IUser[] = data;
   return (
     <Card>
       <CardHeader>

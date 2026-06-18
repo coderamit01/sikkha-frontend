@@ -1,10 +1,14 @@
+import TableLoader from "@/components/loader/TableLoader";
 import UserListTable from "@/components/table/UserListTable";
-import { getAllUser } from "@/services/auth.service";
+import { Suspense } from "react";
 
 const UserList = async () => {
-  const data = await getAllUser();
 
-  return <UserListTable users={data} />;
+  return (
+    <Suspense fallback={<TableLoader />}>
+      <UserListTable />
+    </Suspense>
+  );
 };
 
 export default UserList;

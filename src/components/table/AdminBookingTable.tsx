@@ -6,8 +6,10 @@ import { useState } from "react";
 import { SquarePen } from "lucide-react";
 import { Role } from "@/types/user.types";
 import { BookingStatusModal } from "../modal/BookingStatusModal";
+import { localTime } from "@/utils/localTime";
 
 const AdminBookingTable = ({ book }: { book: IBooking }) => {
+  console.log(book);
   const [isOpen, setIsOpen] = useState(false);
   const { availability, id, status, totalPrice, tutor, student, scheduleAt } =
     book;
@@ -18,17 +20,22 @@ const AdminBookingTable = ({ book }: { book: IBooking }) => {
 
   return (
     <TableRow>
-      <TableCell>{tutor.name}</TableCell>
+      <TableCell>{tutor?.user?.name}</TableCell>
       <TableCell>{student.name}</TableCell>
-      <TableCell>{scheduleDate.toLocaleDateString()}</TableCell>
+      <TableCell className="capitalize">{availability.day.toLocaleLowerCase()}</TableCell>
       <TableCell>
-        {new Date(availability.startTime).toLocaleTimeString()}
+        {localTime(availability.startTime)}
       </TableCell>
       <TableCell>
-        {new Date(availability.endTime).toLocaleTimeString()}
+        {localTime(availability.endTime)}
       </TableCell>
       <TableCell>৳{totalPrice}</TableCell>
       <TableCell className="lowercase">
+        {status === BookingStatus.PENDING && (
+          <Badge className="bg-orange-50 text-orange-700 dark:bg-orange-950 dark:text-orange-300">
+            {status}
+          </Badge>
+        )}
         {status === BookingStatus.CONFIRMED && (
           <Badge className="bg-blue-50 text-blue-700 dark:bg-blue-950 dark:text-blue-300">
             {status}
