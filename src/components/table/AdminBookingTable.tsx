@@ -12,7 +12,6 @@ const AdminBookingTable = ({ book }: { book: IBooking }) => {
   const [isOpen, setIsOpen] = useState(false);
   const { availability, id, status, totalPrice, tutor, student, scheduleAt } =
     book;
-  const scheduleDate = new Date(scheduleAt);
   const handleOpen = () => {
     setIsOpen(true);
   };
@@ -28,7 +27,7 @@ const AdminBookingTable = ({ book }: { book: IBooking }) => {
       <TableCell>
         {localTime(availability.endTime)}
       </TableCell>
-      <TableCell>৳{totalPrice}</TableCell>
+      <TableCell>${totalPrice}</TableCell>
       <TableCell className="lowercase">
         {status === BookingStatus.PENDING && (
           <Badge className="bg-orange-50 text-orange-700 dark:bg-orange-950 dark:text-orange-300">

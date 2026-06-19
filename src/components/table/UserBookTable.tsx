@@ -24,7 +24,7 @@ export function UserBookTable({ book }: { book: IBooking }) {
       <TableCell>{availability.day}</TableCell>
       <TableCell>{localTime(availability.startTime)}</TableCell>
       <TableCell>{localTime(availability.endTime)}</TableCell>
-      <TableCell>৳{totalPrice}</TableCell>
+      <TableCell>${totalPrice}</TableCell>
       <TableCell className="lowercase">
         {status === BookingStatus.PENDING && (
           <Badge className="bg-orange-50 text-orange-700 dark:bg-orange-950 dark:text-orange-300">
@@ -50,9 +50,8 @@ export function UserBookTable({ book }: { book: IBooking }) {
       <TableCell>
         <SquarePen
           onClick={isClosed ? undefined : handleOpen}
-          className={`w-6 h-6 bg-slate-200 p-1 rounded ${
-            isClosed ? "opacity-50 cursor-not-allowed" : "cursor-pointer"
-          }`}
+          className={`w-6 h-6 bg-slate-200 p-1 rounded ${isClosed ? "opacity-50 cursor-not-allowed" : "cursor-pointer"
+            }`}
         />
         <BookingStatusModal
           id={id}

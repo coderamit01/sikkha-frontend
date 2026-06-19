@@ -20,7 +20,6 @@ export const metadata: Metadata = {
   description:
     "Skill Bridge connects students with vetted tutors for personalized, on-demand lessons. Book sessions, track progress, and reach learning goals faster",
 };
-export const dynamic = "force-dynamic";
 
 export default function RootLayout({
   children,

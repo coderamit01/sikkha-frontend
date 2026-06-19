@@ -12,6 +12,7 @@ const TutorDetailsSidebar = ({
   user: IUser;
 }) => {
   const { id: tutorId, availability, hourlyRate } = tutor;
+  const tutorName = tutor.user.name;
 
   return (
     <div className="sticky top-24 bg-white rounded-3xl overflow-hidden">
@@ -27,7 +28,13 @@ const TutorDetailsSidebar = ({
 
           <AvailableTabs availablity={availability} />
         </div>
-        <SessionBookButton tutorId={tutorId} user={user} />
+        <SessionBookButton
+          tutorId={tutorId}
+          user={user}
+          tutorName={tutorName}
+          hourlyRate={hourlyRate as number}
+          enablePayment={true}
+        />
       </div>
     </div>
   );

@@ -6,9 +6,9 @@ export default function commonLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <>
-      <Navbar />
-      <main>{children}</main>
-      <Footer />
+        <Navbar />
+        <main>{children}</main>
+        <Footer />
     </>
   );
 }

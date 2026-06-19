@@ -28,7 +28,7 @@ const TutorBookingTable = ({ book }: { book: IBooking }) => {
       <TableCell>
         {localTime(availability.endTime)}
       </TableCell>
-      <TableCell>৳{totalPrice}</TableCell>
+      <TableCell>${totalPrice}</TableCell>
       <TableCell className="lowercase">
         {status === BookingStatus.PENDING && (
           <Badge className="bg-orange-50 text-orange-700 dark:bg-orange-950 dark:text-orange-300">
