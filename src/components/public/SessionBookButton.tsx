@@ -3,7 +3,7 @@
 import { createBooking } from "@/actions/booking.action";
 import { Button } from "@/components/ui/button"
 import { useBookingStore } from "@/store/booking.store";
-import { IUser } from "@/types/user.types";
+import { IUser, Role } from "@/types/user.types";
 import { BookOpen } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
@@ -16,7 +16,7 @@ const SessionBookButton = ({ tutorId, user }: { tutorId: string, user: IUser }) 
 
   const handleCreateBooking = async () => {
 
-    if (!user) {
+    if (user.role !== Role.STUDENT) {
       toast.error("Please login to book a session.", { position: "top-right" });
       router.push('/login');
       return;
@@ -29,7 +29,7 @@ const SessionBookButton = ({ tutorId, user }: { tutorId: string, user: IUser }) 
     const result = await createBooking(tutorId, selectedAvailabilityId);
 
     if (result?.success) {
-      toast.success("Session booked!", { position: "top-right" });
+      toast.success("Session booked Successfully", { position: "top-right" });
     } else {
       toast.error(result?.message || "Booking failed.", { position: "top-right" });
     }

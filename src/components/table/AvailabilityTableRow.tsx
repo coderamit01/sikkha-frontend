@@ -18,7 +18,7 @@ const AvailabilityTableRow = ({ available }: { available: IAvailability }) => {
   const start = localTime(startTime);
   const end = localTime(endTime);
 
-  const diffHours = TimeDifference(startTime,endTime);
+  const diffHours = TimeDifference(startTime,endTime).toFixed(1);
 
   const handleDeleteAvailability = () => {
     startTransition(async () => {

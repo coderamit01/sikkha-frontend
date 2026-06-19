@@ -39,7 +39,6 @@ export interface ITutorDetails {
   hourlyRate: number | string; 
   yearsExperience: number | string;
   averageRating: number | string;
-  isAvailable: boolean;
   createdAt: Date | string;
   updatedAt: Date | string;
   reviews: IReview[],

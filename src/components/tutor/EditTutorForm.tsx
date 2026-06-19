@@ -23,8 +23,7 @@ export const EditTutorForm = ({ tutor }: { tutor: ITutorDetails }) => {
       contactNumber: tutor?.contactNumber || "",
       gender: tutor?.gender || Gender.MALE,
       hourlyRate: tutor?.hourlyRate || "",
-      yearsExperience: tutor?.yearsExperience || "",
-      isAvailable: tutor?.isAvailable ?? true
+      yearsExperience: tutor?.yearsExperience || ""
     },
     onSubmit: async ({ value }) => {
       startTransition(async () => {
@@ -161,27 +160,6 @@ export const EditTutorForm = ({ tutor }: { tutor: ITutorDetails }) => {
                   onBlur={field.handleBlur}
                   placeholder="5"
                 />
-              </div>
-            )
-          }}
-        </form.Field>
-
-        <form.Field name="isAvailable">
-          {(field) => {
-            return (
-              <div className="flex items-center gap-2">
-                <input
-                  id={field.name}
-                  type="checkbox"
-                  name={field.name}
-                  checked={field.state.value}
-                  onChange={(e) => field.handleChange(e.target.checked)}
-                  onBlur={field.handleBlur}
-                  className="w-4 h-4 text-brand bg-gray-100 border-gray-300 rounded cursor-pointer"
-                />
-                <FieldLabel htmlFor={field.name} className="text-sm font-medium text-gray-700 cursor-pointer">
-                  Available for Booking
-                </FieldLabel>
               </div>
             )
           }}
