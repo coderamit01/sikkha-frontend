@@ -5,9 +5,8 @@ import { SquarePen, Trash2 } from "lucide-react";
 import { removeCategory } from "@/actions/category.action";
 import { toast } from "sonner";
 import { useState } from "react";
-import CategoryUpdateModal from "@/components/modal/CategoryUpdateModal";
 
-const CategoryTable = ({ category }: { category: Category }) => {
+const CategoryTable = ({ category,allcategories }: { category: Category, allcategories: Category[]  }) => {
   const [isOpen, setIsOpen] = useState(false);
   const { id, name } = category;
   const handleDelete = async () => {
@@ -31,20 +30,11 @@ const CategoryTable = ({ category }: { category: Category }) => {
     <TableRow>
       <TableCell>{name}</TableCell>
       <TableCell className="text-right flex items-center gap-2 justify-end">
-        <SquarePen
-          onClick={handleOpen}
-          className="w-6 h-6 cursor-pointer bg-slate-200 p-1 rounded"
-        />
         <Trash2
           onClick={handleDelete}
           className={`w-6 h-6 cursor-pointer bg-red-100 text-red-600 p-1 rounded`}
         />
 
-        <CategoryUpdateModal
-          isOpen={isOpen}
-          setIsOpen={setIsOpen}
-          category={category}
-        />
       </TableCell>
     </TableRow>
   );

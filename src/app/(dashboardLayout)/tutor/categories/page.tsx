@@ -34,7 +34,7 @@ const TutorSubject = async () => {
               </TableHeader>
               <TableBody>
                 {myCategories.map((category) => (
-                  <CategoryTable key={category.id} category={category} />
+                  <CategoryTable key={category.id} category={category} allcategories={categories} />
                 ))}
               </TableBody>
             </Table>

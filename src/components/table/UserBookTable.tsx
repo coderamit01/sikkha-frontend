@@ -10,7 +10,7 @@ import { localTime } from "@/utils/localTime";
 
 export function UserBookTable({ book }: { book: IBooking }) {
   const [isOpen, setIsOpen] = useState(false);
-  const { availability, id, status, totalPrice, tutor, scheduleAt } = book;
+  const { availability, id, status, totalPrice, tutor } = book;
 
   const handleOpen = () => {
     setIsOpen(true);

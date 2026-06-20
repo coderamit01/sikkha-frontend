@@ -41,7 +41,7 @@ export const BookingStatusModal = ({
   const bookStatus = Object.keys(BookingStatus).filter((k) => {
     switch (role) {
       case Role.STUDENT:
-        return k !== BookingStatus.COMPLETED && k !== BookingStatus.CONFIRMED;
+        return k !== BookingStatus.COMPLETED;
       case Role.TUTOR:
         return k !== BookingStatus.CANCELLED;
       case Role.ADMIN:
