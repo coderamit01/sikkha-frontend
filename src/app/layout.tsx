@@ -16,9 +16,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Skill Bridge | Tutoring Made Personal",
+  title: "Shikkha | Tutoring Made Personal",
   description:
-    "Skill Bridge connects students with vetted tutors for personalized, on-demand lessons. Book sessions, track progress, and reach learning goals faster",
+    "Shikkha connects students with vetted tutors for personalized, on-demand lessons. Book sessions, track progress, and reach learning goals faster",
 };
 
 export default function RootLayout({

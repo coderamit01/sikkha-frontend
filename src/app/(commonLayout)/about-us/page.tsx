@@ -13,7 +13,7 @@ export default function AboutPage() {
           <div className="relative container mx-auto px-4 py-24 md:py-32">
             <div className="text-center">
               <h1 className="text-4xl md:text-6xl font-bold mb-6 animate-fade-in">
-                About Skill Bridge
+                About Shikkha
               </h1>
               <p className="text-xl md:text-2xl text-slate-100 mb-8">
                 Empowering students to reach their full potential through

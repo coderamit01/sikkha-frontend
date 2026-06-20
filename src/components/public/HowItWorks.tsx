@@ -43,7 +43,7 @@ export function HowItWorks() {
       <div className="max-w-310 mx-auto px-4 py-15 lg:py-18">
         <div className="flex justify-center mb-14">
           <h2 className="text-3xl md:text-[44px] leading-[1.08] mt-4 pb-5 font-semibold text-center">
-            How Skill Bridge <span className="text-brand">Works</span>
+            How Shikkha <span className="text-brand">Works</span>
           </h2>
         </div>
 
