@@ -1,13 +1,11 @@
 "use client";
 import { Category } from "@/types/category.types";
 import { TableCell, TableRow } from "@/components/ui/table";
-import { SquarePen, Trash2 } from "lucide-react";
+import { Trash2 } from "lucide-react";
 import { removeCategory } from "@/actions/category.action";
 import { toast } from "sonner";
-import { useState } from "react";
 
-const CategoryTable = ({ category,allcategories }: { category: Category, allcategories: Category[]  }) => {
-  const [isOpen, setIsOpen] = useState(false);
+const CategoryTable = ({ category }: { category: Category  }) => {
   const { id, name } = category;
   const handleDelete = async () => {
     try {
@@ -23,9 +21,7 @@ const CategoryTable = ({ category,allcategories }: { category: Category, allcate
       toast.error("Failed to delete category", { position: "top-right" });
     }
   };
-  const handleOpen = () => {
-    setIsOpen(true);
-  };
+
   return (
     <TableRow>
       <TableCell>{name}</TableCell>
