@@ -19,11 +19,6 @@ export const getUser = async (req: NextRequest) => {
   }
 }
 
-export const logOut = async () => {
-  const res = await api.post("/auth/logout");
-  return res.data;
-}
-
 export const getAllUser = async() => {
   try {
     const data = await serverFetch("/users", {

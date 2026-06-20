@@ -1,4 +1,5 @@
 "use client";
+import { logOut } from "@/actions/logout.action";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -9,8 +10,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { authClient } from "@/lib/auth-client";
-import { logOut } from "@/services/auth.service";
 import { IUser, Role } from "@/types/user.types";
 import {
   BadgeCheckIcon,
