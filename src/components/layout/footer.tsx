@@ -84,11 +84,11 @@ export function Footer() {
             <ul className="space-y-3">
               <li className="text-slate-50">
                 <a
-                  href="mailto:support@skillbridge.com"
+                  href="mailto:support@shikkha.com"
                   className="flex items-center gap-1 hover:text-white transition-colors text-base"
                 >
                   <Mail className="h-4 w-4" />
-                  <span>support@skillbridge.com</span>
+                  <span>support@shikkha.com</span>
                 </a>
               </li>
               <li className="text-slate-50">
@@ -123,7 +123,7 @@ export function Footer() {
 
         <div className="border-t border-slate-300 pt-8 flex flex-col md:flex-row items-center justify-between">
           <p className="text-sm text-slate-50 font-medium mb-4 md:mb-0 text-center lg:text-start">
-            © 2026 SkillBridge. All rights reserved. Empowering learners
+            © 2026 Shikkha. All rights reserved. Empowering learners
             worldwide.
           </p>
           <div className="flex gap-8">
