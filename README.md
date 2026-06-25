@@ -204,18 +204,3 @@ The application is deployed on Render with the following process:
 | Zod | 4.3.6 | Schema validation |
 | TypeScript | - | Type safety |
 
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit issues and pull requests.
-
-## 📄 License
-
-This project is private and proprietary.
-
-## 📧 Contact
-
-For inquiries or support, please contact the development team.
-
----
-
-**Built with ❤️ for education**
